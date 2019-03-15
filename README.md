@@ -51,7 +51,7 @@ spec:
         app: demosecretvolume
     spec: 
       containers: 
-        - image: demosecretvolume
+        - image: nginx
           imagePullPolicy: Always
           name: demosecretvolume
           ports: 
@@ -133,7 +133,7 @@ spec:
         app: demosecretmulticontainer
     spec:
       containers:
-      - image: demosecretmulticontainer
+      - image: nginx
         env:
           - name: SECRET_USERNAME
             valueFrom:

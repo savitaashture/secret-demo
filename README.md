@@ -15,6 +15,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: demosecret
+  namespace: demo
 type: Opaque
 data:
   username: ZGVtbw==
@@ -26,7 +27,7 @@ EOF
 echo -n 'demo' > ./username.txt
 echo -n 'secret' > ./password.txt
 
-kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
+kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt -n demo
 ```
 ## Secret Mount
 ### Volume Mount
@@ -38,6 +39,7 @@ metadata:
   labels: 
     app: demosecretvolume
   name: demosecretvolume
+  namespace: demo
 spec: 
   replicas: 1
   selector: 
@@ -76,6 +78,7 @@ metadata:
   labels: 
     app: demosecretenv
   name: demosecretenv
+  namespace: demo
 spec: 
   replicas: 1
   selector: 
@@ -118,6 +121,7 @@ metadata:
   labels:
     app: demosecretmulticontainer
   name: demosecretmulticontainer
+  namespace: demo
 spec:
   replicas: 1
   selector:

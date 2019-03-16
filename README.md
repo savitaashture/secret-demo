@@ -111,7 +111,24 @@ spec:
       restartPolicy: Always
 EOF
 ```
+### ImagePullSecrets
+```
+kubectl create secret docker-registry myregistrykey --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
 
+secret/myregistrykey created.
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demopull
+  namespace: demo
+spec:
+  containers:
+    - name: demopull
+      image: nginx
+  imagePullSecrets:
+    - name: myregistrykey
+```
 ### MultiContainer pod
 ```
 cat <<EOF | kubectl create -f -

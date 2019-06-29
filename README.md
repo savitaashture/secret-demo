@@ -44,7 +44,6 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: demosecret
-  namespace: demo
 type: Opaque
 data:
   username: ZGVtbw==
@@ -68,7 +67,6 @@ metadata:
   labels: 
     app: demosecretvolume
   name: demosecretvolume
-  namespace: demo
 spec: 
   replicas: 1
   selector: 
@@ -107,7 +105,6 @@ metadata:
   labels: 
     app: demosecretenv
   name: demosecretenv
-  namespace: demo
 spec: 
   replicas: 1
   selector: 
@@ -150,7 +147,6 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: demopull
-  namespace: demo
 spec:
   containers:
     - name: demopull
@@ -167,7 +163,6 @@ metadata:
   labels:
     app: demosecretmulticontainer
   name: demosecretmulticontainer
-  namespace: demo
 spec:
   replicas: 1
   selector:

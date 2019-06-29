@@ -154,7 +154,7 @@ metadata:
 spec:
   containers:
     - name: demopull
-      image: nginx
+      image: myimage
   imagePullSecrets:
     - name: myregistrykey
 ```

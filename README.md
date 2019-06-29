@@ -157,44 +157,41 @@ spec:
 ### MultiContainer pod
 ```
 cat <<EOF | kubectl create -f -
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
-  labels:
-    app: demosecretmulticontainer
   name: demosecretmulticontainer
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: demosecretmulticontainer
-  template:
-    metadata:
-      labels:
-        app: demosecretmulticontainer
-    spec:
-      containers:
-      - image: nginx
-        env:
-          - name: SECRET_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: test-secret
-                key: username
-          - name: SECRET_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: test-secret
-                key: password
-        imagePullPolicy: Always
-        name: demosecretmulticontainer
-        ports:
-        - containerPort: 80
-          protocol: TCP
-        resources: {}
-      - image: redis
-        imagePullPolicy: Always
-        name: redis
-      restartPolicy: Always
+  containers:
+  - image: nginx
+    env:
+      - name: SECRET_USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: test-secret
+            key: username
+      - name: SECRET_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: test-secret
+            key: password
+    imagePullPolicy: Always
+    name: demosecretmulticontainer
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    resources: {}
+  - image: redis
+    imagePullPolicy: Always
+    name: redis
+    restartPolicy: Always
 EOF
+```
+## Verification
+```
+kubectl exec -it demosecretmulticontainer -c demosecretmulticontainer env | grep SECRET_
+SECRET_USERNAME=admin
+SECRET_PASSWORD=a62fjbd37942dcs
+
+kubectl exec -it demosecretmulticontainer-687b95d57c-7h6v5 -c redis env | grep SECRET_
 ```

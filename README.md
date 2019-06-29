@@ -2,8 +2,31 @@
 
 ## To view system created secrets
 ```
-kubectl create ns demo
-kubectl get secrets -n demo
+kubectl get secrets
+```
+## Verify how system created secrets will be used by pods
+```
+cat <<EOF | kubectl create -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: test
+  name: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      labels:
+        app: test
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+EOF        
 ```
 ## Create secrets manually
 ```

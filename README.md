@@ -26,8 +26,14 @@ spec:
       containers:
       - image: nginx
         name: nginx
-EOF        
+EOF
 ```
+
+## Delete deployment
+```
+kubectl delete deployment test
+```
+
 ## Create secrets manually
 ```
 echo -n 'demo' | base64

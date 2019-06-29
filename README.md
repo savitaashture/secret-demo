@@ -184,7 +184,6 @@ spec:
   - image: redis
     imagePullPolicy: Always
     name: redis
-    restartPolicy: Always
 EOF
 ```
 ## Verification

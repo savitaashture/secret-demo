@@ -43,7 +43,7 @@ cat <<EOF | kubectl create -f -
 apiVersion: v1
 kind: Secret
 metadata:
-  name: demosecret
+  name: test-secret
 type: Opaque
 data:
   username: ZGVtbw==
@@ -55,7 +55,7 @@ EOF
 echo -n 'demo' > ./username.txt
 echo -n 'secret' > ./password.txt
 
-kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt -n demo
+kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
 ```
 ## Secret Mount
 ### Volume Mount
@@ -93,7 +93,7 @@ spec:
       volumes: 
         - name: foo
           secret: 
-            secretName: demosecret
+            secretName: test-secret
 EOF		  
 ```
 ### Using Environment Variable
@@ -121,12 +121,12 @@ spec:
               valueFrom: 
                 secretKeyRef: 
                   key: username
-                  name: demosecret
+                  name: test-secret
             - name: SECRET_PASSWORD
               valueFrom: 
                 secretKeyRef: 
                   key: password
-                  name: demosecret
+                  name: test-secret
           image: nginx
           imagePullPolicy: Always
           name: demosecretenv
@@ -179,12 +179,12 @@ spec:
           - name: SECRET_USERNAME
             valueFrom:
               secretKeyRef:
-                name: demosecret
+                name: test-secret
                 key: username
           - name: SECRET_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: demosecret
+                name: test-secret
                 key: password
         imagePullPolicy: Always
         name: demosecretmulticontainer
